@@ -1,3 +1,22 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\IndexController::index
+    
+ingredients:
+    path: /ingredients
+    controller: App\Controller\IngredientController::index
+    
+ingredient_edit:
+    path: /ingredient/{id}
+    controller: App\Controller\IngredientController::edit
+    methods: GET|POST
+    
+ingredient_new:
+    path: /ingredient
+    controller: App\Controller\IngredientController::new
+    methods: GET|POST
+    
+ingredient_delete:
+    path: /ingredient/delete/{id}
+    controller: App\Controller\IngredientController::delete
+    methods: POST
