@@ -39,3 +39,18 @@ pizza_delete:
     path: /pizza/delete/{id}
     controller: App\Controller\PizzaController::delete
     methods: POST
+    
+pizza_ingredients:
+    path: /pizza/{id}/ingredients
+    controller: App\Controller\PizzaController::ingredients
+    methods: GET
+    
+pizza_ingredient_add:
+    path: /pizza/{pizzaid}/ingredient/add/{ingredientid}
+    controller: App\Controller\PizzaController::addIngredient
+    methods: POST
+    
+pizza_ingredient_remove:
+    path: /pizza/{pizzaid}/ingredient/remove/{ingredientid}
+    controller: App\Controller\PizzaController::removeIngredient
+    methods: POST
