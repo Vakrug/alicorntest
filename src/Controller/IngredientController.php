@@ -22,6 +22,7 @@ class IngredientController extends AbstractController {
                 . '<form method="POST" action="' . $this->generateUrl('ingredient_delete', ['id' => $ingredient->getId()]) . '"><input type="submit" value="delete" /></form>'
                 . '<br />';
         }
+        $html .= '<a href="' . $this->generateUrl('ingredient_new') . '">new</a><br />';
         $html .= '</body></html>';
         
         return new Response(
