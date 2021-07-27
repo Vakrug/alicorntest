@@ -10,24 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 class IngredientController extends AbstractController {
     
     public function index(): Response {
-        
         /** @var Ingredient[] $ingredients */
         $ingredients = $this->getDoctrine()->getRepository(Ingredient::class)->findAll();
-        
-        $html = '<html><body>';
-        $html .= '<a href="' . $this->generateUrl('index') . '">Home</a><br />';
-        foreach ($ingredients as $ingredient) {
-            $html .= $ingredient->getName() . ' - ' . $ingredient->getPrice() . ' '
-                . '<a href="' . $this->generateUrl('ingredient_edit', ['id' => $ingredient->getId()]) . '">edit</a>'
-                . '<form method="POST" action="' . $this->generateUrl('ingredient_delete', ['id' => $ingredient->getId()]) . '"><input type="submit" value="delete" /></form>'
-                . '<br />';
-        }
-        $html .= '<a href="' . $this->generateUrl('ingredient_new') . '">new</a><br />';
-        $html .= '</body></html>';
-        
-        return new Response(
-            $html
-        );
+        return $this->json($ingredients);
     }
     
     public function edit(int $id, Request $request): Response {
@@ -43,18 +28,10 @@ class IngredientController extends AbstractController {
             $entityManager->persist($ingredient);
             $entityManager->flush();
             
-            return $this->redirect($this->generateUrl('ingredients'));
+            return $this->json(['success' => true]);
         }
-        
-        $html = '<html><body>';
-        $html .= '<form method="POST"><input type="text" name="name" value="' . $ingredient->getName() . '" />';
-        $html .= '<input type="number" name="price" step="any" value="' . $ingredient->getPrice() . '" />';
-        $html .= '<input type="submit" value="submit" /></form>';
-        $html .= '</body></html>';
-        
-        return new Response(
-            $html
-        );
+
+        return $this->json($ingredient);
     }
     
     public function new(Request $request): Response {
@@ -68,18 +45,11 @@ class IngredientController extends AbstractController {
             $entityManager->persist($ingredient);
             $entityManager->flush();
             
-            return $this->redirect($this->generateUrl('ingredients'));
+            return $this->json(['success' => true]);
         }
-        
-        $html = '<html><body>';
-        $html .= '<form method="POST"><input type="text" name="name" value="" />';
-        $html .= '<input type="number" name="price" step="any" value="" />';
-        $html .= '<input type="submit" value="submit" /></form>';
-        $html .= '</body></html>';
-        
-        return new Response(
-            $html
-        );
+
+        $ingredient = new Ingredient();
+        return $this->json($ingredient);
     }
     
     public function delete(int $id): Response {
@@ -89,7 +59,7 @@ class IngredientController extends AbstractController {
         $entityManager->remove($ingredient);
         $entityManager->flush();
         
-        return $this->redirect($this->generateUrl('ingredients'));
+        return $this->json(['success' => true]);
     }
     
 }

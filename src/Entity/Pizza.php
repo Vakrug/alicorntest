@@ -39,7 +39,6 @@ class Pizza
      *      joinColumns={@JoinColumn(name="PizzaId", referencedColumnName="Id")},
      *      inverseJoinColumns={@JoinColumn(name="IngredientId", referencedColumnName="Id")}
      *      )
-     * @OrderBy({"id" = "ASC"})
      */
     private $ingredients;
     
